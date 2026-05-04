@@ -8,7 +8,12 @@ $generated_password = "";
 if (isset($_GET['length']) && !empty($_GET['length'])) {
 
     $password_length = (int)$_GET['length'];
-    $generated_password = passwordGenerator($password_length);
+
+    $filters = isset($_GET["filters"]) ? $_GET["filters"] : [];
+
+    $enable_repeat = (bool)$_GET["repeat"];
+
+    $generated_password = passwordGenerator($password_length, $filters, $enable_repeat);
 
     $_SESSION["generated_password"] = $generated_password;
 
@@ -32,10 +37,23 @@ if (isset($_GET['length']) && !empty($_GET['length'])) {
     <h1>Strong Password Generator</h1>
     <p>Qui potrai generare la tua password sicura</p>
     <form action="index.php" method="GET">
-        <label for="length">Inserisci la lunghezza della password desiderata</label>
+        <label for="length">Lunghezza password:</label>
         <input type="number" id="length" name="length" min="4" max="70" required>
+
+        <br><br>
+
+        <span>Consenti ripetizioni:</span>
+        <input type="radio" name="repeat" value="1" checked> Sì
+        <input type="radio" name="repeat" value="0"> No
+
+        <br><br>
+
+        <input type="checkbox" name="filters[]" value="letters"> Lettere
+        <input type="checkbox" name="filters[]" value="numbers"> Numeri
+        <input type="checkbox" name="filters[]" value="symbols"> Simboli
+
+        <br><br>
         <button type="submit">Genera</button>
-        <button type="reset">Resetta</button>
     </form>
 </body>
 </html>
