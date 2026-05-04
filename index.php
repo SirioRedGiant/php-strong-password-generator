@@ -1,14 +1,18 @@
 <?php
+session_start();
 require_once "./functions.php";
 
 $generated_password = "";
 
 // Controllo se il form è stato inviato, quindi se esiste "length" nel $_GET
 if (isset($_GET['length']) && !empty($_GET['length'])) {
-    $password_length = (int)$_GET['length'];
 
-    
+    $password_length = (int)$_GET['length'];
     $generated_password = passwordGenerator($password_length);
+
+    $_SESSION["generated_password"] = $generated_password;
+
+    header("Location: ./result.php");
 }
 
 
@@ -33,14 +37,5 @@ if (isset($_GET['length']) && !empty($_GET['length'])) {
         <button type="submit">Genera</button>
         <button type="reset">Resetta</button>
     </form>
-    <?php
-    if ($generated_password) {
-    ?>
-    <div>
-        La tua password è: <strong><?php echo($generated_password) ?></strong>
-    </div>
-    <?php
-    }
-    ?>
 </body>
 </html>

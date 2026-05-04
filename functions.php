@@ -1,5 +1,4 @@
 <?php
-
 //funzione che data una lunghezza definita nel form restituisce una password
     function passwordGenerator($length) {
         $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?~@#-_+<>[]{}";
