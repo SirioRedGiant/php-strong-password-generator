@@ -29,7 +29,8 @@
             if ($enable_repeat || !str_contains($password, $random_char)) {
                 $password .= $random_char;
             }
-
+            // se l'utente non vuole ripetizioni ma il pool dei caratteri disponibili è inferiore alla quantità richiesta esce per evitare loop infinito
+            if (!$enable_repeat && strlen($password) >= strlen($available_characters)) break;
         }
         return $password;        
     }
